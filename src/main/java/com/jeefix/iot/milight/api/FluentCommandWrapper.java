@@ -59,4 +59,15 @@ public class FluentCommandWrapper {
         }
         return this;
     }
+
+    /**
+     * Sets hue level to selected value
+     *
+     * @param level of hue in rage 0-360
+     * @return this
+     */
+    public FluentCommandWrapper hue(int level) {
+        commandService.setHue(level);
+        return this;
+    }
 }

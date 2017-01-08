@@ -14,6 +14,7 @@ public class CommandService {
 
     public static final int ROUTER_COMMUNICATION_PORT = 48899;
     public static final int COMMUNICATION_PORT = 5987;
+    public static final int HUE_MAX_COLOR = 360;
     private int sequenceNumber = 0;
     protected byte sessionId1;
     protected byte sessionId2;
@@ -62,6 +63,12 @@ public class CommandService {
         }
         int normalizedValue = (int) Math.ceil((double) value * 64 / 100);
         byte[] request = prepareCommand(String.format(MilightCommand.BRIGHTNESS_SET.getHexCommand(), normalizedValue));
+        transportService.sendPackage(COMMUNICATION_PORT, request);
+    }
+
+    public void setHue(int hue) {
+        int color = (int) (((float) hue / HUE_MAX_COLOR) * 255);
+        byte[] request = prepareCommand(String.format(MilightCommand.COLOR_SET.getHexCommand(), color, color, color, color));
         transportService.sendPackage(COMMUNICATION_PORT, request);
     }
 
