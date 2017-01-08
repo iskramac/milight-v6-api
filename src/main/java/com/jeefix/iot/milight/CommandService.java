@@ -8,13 +8,15 @@ import com.jeefix.iot.milight.common.MilightException;
 import com.jeefix.iot.milight.transport.MessageTransportService;
 
 /**
- * Created by mais on 2017-01-02.
+ * Handles high level communication with device
+ * Created by Macie Iskra (iskramac) on 2017-01-02.
  */
 public class CommandService {
 
     public static final int ROUTER_COMMUNICATION_PORT = 48899;
     public static final int COMMUNICATION_PORT = 5987;
     public static final int HUE_MAX_COLOR = 360;
+
     private int sequenceNumber = 0;
     protected byte sessionId1;
     protected byte sessionId2;
@@ -57,18 +59,27 @@ public class CommandService {
         transportService.sendPackage(COMMUNICATION_PORT, request);
     }
 
-    public void setBrightness(int value) {
-        if (value < 0 || value > 100) {
-            throw new MilightArgumentException(String.format("Brightness level should be in range 0-100. Received %d", value));
+    public void setBrightness(int brightness) {
+        if (brightness < 0 || brightness > 100) {
+            throw new MilightArgumentException(String.format("Brightness level should be in range 0-100. Received %d", brightness));
         }
-        int normalizedValue = (int) Math.ceil((double) value * 64 / 100);
+        int normalizedValue = (int) Math.ceil((double) brightness * 64 / 100);
         byte[] request = prepareCommand(String.format(MilightCommand.BRIGHTNESS_SET.getHexCommand(), normalizedValue));
         transportService.sendPackage(COMMUNICATION_PORT, request);
     }
 
     public void setHue(int hue) {
         int color = (int) (((float) hue / HUE_MAX_COLOR) * 255);
-        byte[] request = prepareCommand(String.format(MilightCommand.COLOR_SET.getHexCommand(), color, color, color, color));
+        byte[] request = prepareCommand(String.format(MilightCommand.HUE_SET.getHexCommand(), color, color, color, color));
+        transportService.sendPackage(COMMUNICATION_PORT, request);
+    }
+
+    public void setSaturation(int saturation) {
+        if (saturation < 0 || saturation > 100) {
+            throw new MilightArgumentException(String.format("Saturation level should be in range 0-100. Received %d", saturation));
+        }
+        int normalizedValue = (int) Math.ceil((double) saturation * 64 / 100);
+        byte[] request = prepareCommand(String.format(MilightCommand.SATURATION_SET.getHexCommand(), normalizedValue));
         transportService.sendPackage(COMMUNICATION_PORT, request);
     }
 

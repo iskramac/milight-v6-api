@@ -29,9 +29,14 @@ public enum MilightCommand {
     BRIGHTNESS_SET("31 00 00 08 03 %02d 00 00 00"),
 
     /**
-     * Set color. This command is parametrized! Change four  occurrences of '%02d' to milight color
+     * Set color. This command is parametrized! Change four occurrences of '%02d' to milight color
      */
-    COLOR_SET("31 00 00 08 01 %02X %02X %02X %02X");
+    HUE_SET("31 00 00 08 01 %02X %02X %02X %02X"),
+
+    /**
+     * Set saturation. This command is parametrized! Change first occurrence of '%02d' to level in range 0-64
+     */
+    SATURATION_SET("31 00 00 08 02 %02X 00 00 00 ");
 
     private String hexCommand;
 
