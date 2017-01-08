@@ -70,6 +70,7 @@ public class FluentCommandWrapper {
         commandService.setHue(level);
         return this;
     }
+
     /**
      * Sets saturation level to selected value
      *
@@ -78,6 +79,11 @@ public class FluentCommandWrapper {
      */
     public FluentCommandWrapper saturationLevel(int level) {
         commandService.setSaturation(level);
+        return this;
+    }
+
+    public FluentCommandWrapper whiteOn() {
+        commandService.whiteOn();
         return this;
     }
 }

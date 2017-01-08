@@ -83,6 +83,11 @@ public class CommandService {
         transportService.sendPackage(COMMUNICATION_PORT, request);
     }
 
+    public void whiteOn() {
+        byte[] whiteOnRequest = prepareCommand(MilightCommand.WHITE_ON.getHexCommand());
+        transportService.sendPackage(COMMUNICATION_PORT, whiteOnRequest);
+    }
+
     protected byte[] prepareCommand(String commandTypeHex) {
         // '80 00 00 00 11(length hex) (17 01)(WB1WB2) 00 SN 00 (31 00 00 08 04 01 00 00 00)(cmd) 01(zone) 00 3F(chksum) response: (88 00 00 00 03 00 SN 00)
         String commandTemplate = String.format("80 00 00 00 04 05 06 00 08 00 %s 19 00 21", commandTypeHex);

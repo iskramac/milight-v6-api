@@ -36,7 +36,13 @@ public enum MilightCommand {
     /**
      * Set saturation. This command is parametrized! Change first occurrence of '%02d' to level in range 0-64
      */
-    SATURATION_SET("31 00 00 08 02 %02X 00 00 00 ");
+    SATURATION_SET("31 00 00 08 02 %02X 00 00 00"),
+
+    /**
+     * Set white LED on
+     */
+    WHITE_ON("31 00 00 08 05 64 00 00 00");
+
 
     private String hexCommand;
 

@@ -8,11 +8,14 @@ public class Main {
         FluentCommandWrapper fluentCommandWrapper = commandService.newMilightFlow()
                 .on() //turn lights on
                 .hue(0)
+                .saturationLevel(0)
                 .brightnessLevel(100) //set brightness to 100%
                 .delay(1000) //wait 1 second
                 .brightnessLevel(50) //set brightness to 50%
                 .delay(500)
                 .brightnessLevel(25)
+                .delay(500)
+                .whiteOn()
                 .off();
     }
 }
