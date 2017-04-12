@@ -46,7 +46,17 @@ public enum MilightCommand {
      * Keeps alive one session ID, this method should be called twice (for each session ID part).
      * This command is parametrized! Change first occurrence of '%02d' to session ID
      */
-    KEEP_ALIVE("D0 00 00 00 02 %02X 00 ");
+    KEEP_ALIVE("D0 00 00 00 02 %02X 00 "),
+
+    IBOX_ON("31 00 00 00 03 03 00 00 00 "),
+
+    IBOX_OFF("31 00 00 00 03 04 00 00 00"),
+
+    IBOX_BRIGHTNESS("31 00 00 00 02 %02d 00 00 00"),
+
+    IBOX_WHITE_ON("31 00 00 00 03 05 00 00 00"),
+
+    IBOX_HUE("31 00 00 00 01 %02X 00 00 00");
 
     private String hexCommand;
 
