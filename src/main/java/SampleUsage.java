@@ -1,10 +1,13 @@
 import com.jeefix.iot.milight.CommandService;
 import com.jeefix.iot.milight.api.FluentCommandWrapper;
 
-public class Main {
+public class SampleUsage {
 
     public static void main(String[] args) throws Exception {
         CommandService commandService = new CommandService("172.23.4.225", 0); //set bridge IP, zone number
+
+
+
         commandService.newMilightFlow()
                 .on() //turn lights on
                 .hue(0) //set hue to 0 (near red color)
@@ -16,6 +19,7 @@ public class Main {
                 .brightnessLevel(25)
                 .delay(500)
                 .whiteOn() //turn on white led
+                .delay(500)
                 .off();
     }
 }

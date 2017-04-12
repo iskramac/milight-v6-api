@@ -18,8 +18,8 @@ public class MessageTransportService {
 
     public static final int SOCKET_TIMEOUT = 5000;
 
-    private static DatagramSocket clientSocket;
-    private static InetAddress ipAddress;
+    private DatagramSocket clientSocket;
+    private InetAddress ipAddress;
 
     /**
      * Creates new instance of service
@@ -30,6 +30,7 @@ public class MessageTransportService {
         try {
             ipAddress = InetAddress.getByName(bridgeIp);
             clientSocket = new DatagramSocket();
+            clientSocket.setBroadcast(true);
             logger.info("Created connection for bridge IP: {}", ipAddress.getHostAddress());
         } catch (UnknownHostException e) {
             throw new MilightException(String.format("Bridge IP address is malformed: ", e));
@@ -61,9 +62,9 @@ public class MessageTransportService {
         String requestString = HexUtils.getHexAsString(message);
         try {
             DatagramPacket sendPacket = new DatagramPacket(message, message.length, ipAddress, port);
-            logger.debug("Attempting to send request {} to address {}:{}", new Object[]{requestString, ipAddress.getHostName(), port});
+            logger.debug("Attempting to send request {} to address {}:{}", new Object[]{requestString, ipAddress, port});
             clientSocket.send(sendPacket);
-            logger.info("Sent request {} to address {}:{}", new Object[]{requestString, ipAddress.getHostName(), port});
+            logger.info("Sent request {} to address {}:{}", new Object[]{requestString, ipAddress, port});
         } catch (Exception e) {
             throw new MilightException(String.format("Unable to send request %s", requestString), e);
         }
@@ -87,5 +88,7 @@ public class MessageTransportService {
         }
     }
 
-
+    public InetAddress getIpAddress() {
+        return ipAddress;
+    }
 }

@@ -57,7 +57,7 @@ public class CommandServiceTest {
         byte[] turnOnRequest = HexUtils.getStringAsHex("80 00 00 00 11 9B 00 00 01 00 31 00 00 08 04 01 00 00 00 00 00 3E");
         reset(commandService.getTransportService());
         commandService.turnOn();
-        verify(commandService.getTransportService()).sendPackage(anyInt(), eq(turnOnRequest));
+        verify(commandService.getTransportService()).sendPackage(anyInt(), eq(turnOnRequest),any());
     }
 
     @Test(dependsOnMethods = "shouldInitializeProperly")
@@ -67,20 +67,20 @@ public class CommandServiceTest {
         verify(commandService.getTransportService()).sendPackage(anyInt(), argThat((arg) -> {
             HexUtils.getHexAsString(arg).contains(String.format(MilightCommand.BRIGHTNESS_SET.getHexCommand(), 0));
             return true;
-        }));
+        }),any());
         reset(commandService.getTransportService());
         commandService.setBrightness(50);
         verify(commandService.getTransportService()).sendPackage(anyInt(), argThat((arg) -> {
             HexUtils.getHexAsString(arg).contains(String.format(MilightCommand.BRIGHTNESS_SET.getHexCommand(), 32));
             return true;
-        }));
+        }),any());
 
         reset(commandService.getTransportService());
         commandService.setBrightness(100);
         verify(commandService.getTransportService()).sendPackage(anyInt(), argThat((arg) -> {
             HexUtils.getHexAsString(arg).contains(String.format(MilightCommand.BRIGHTNESS_SET.getHexCommand(), 64));
             return true;
-        }));
+        }),any());
 
         assertThatThrownBy(() -> commandService.setBrightness(101)).isInstanceOf(MilightArgumentException.class).hasMessageContaining("101");
         assertThatThrownBy(() -> commandService.setBrightness(-1)).isInstanceOf(MilightArgumentException.class).hasMessageContaining("-1");

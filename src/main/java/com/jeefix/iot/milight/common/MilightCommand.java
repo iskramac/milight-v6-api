@@ -41,8 +41,12 @@ public enum MilightCommand {
     /**
      * Set white LED on
      */
-    WHITE_ON("31 00 00 08 05 64 00 00 00");
-
+    WHITE_ON("31 00 00 08 05 64 00 00 00"),
+    /**
+     * Keeps alive one session ID, this method should be called twice (for each session ID part).
+     * This command is parametrized! Change first occurrence of '%02d' to session ID
+     */
+    KEEP_ALIVE("D0 00 00 00 02 %02X 00 ");
 
     private String hexCommand;
 

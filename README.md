@@ -5,7 +5,7 @@ Library provides Java API for milight/limitless WIFI bridge  of version 6 (Milig
 ```java
 import com.jeefix.iot.milight.CommandService;
 
-public class Main {
+public class SampleUsage {
 
     public static void main(String[] args) throws Exception {
         CommandService commandService = new CommandService("172.23.4.225", 0); //set bridge IP, zone number

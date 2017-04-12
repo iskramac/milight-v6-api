@@ -51,7 +51,7 @@ public class FluentCommandWrapper {
      * @param timeInMilis to delay
      * @return this
      */
-    public FluentCommandWrapper delay(int timeInMilis) {
+    public FluentCommandWrapper  delay(int timeInMilis) {
         try {
             Thread.sleep(timeInMilis);
         } catch (InterruptedException e) {
